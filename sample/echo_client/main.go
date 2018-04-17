@@ -11,7 +11,7 @@ import (
 	"os"
 	"bufio"
 	"runtime"
-	"github.com/pigogo/netgo/netgo"
+	"github.com/pigogo/netgo"
 	"fmt"
 	"flag"
 	"net/http"
