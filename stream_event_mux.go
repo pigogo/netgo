@@ -8,8 +8,10 @@
 package netgo
 
 import (
+	"time"
 	"syscall"
 	"sync/atomic"
+	"golang.org/x/net/context"
 )
 
 func (stream *netStream) OnEvent(events uint32) {
@@ -34,10 +36,11 @@ func (stream *netStream) OnEvent(events uint32) {
 				break
 			}
 
+			ctx, _ := context.WithTimeout(context.Background(), time.Millisecond)
 			select {
 			case stream.eventIn<-events:
 				break
-			default:
+			case <-ctx.Done():	//avoid event idle
 				break
 			}
 		}

@@ -52,8 +52,8 @@ func (tq *toutQueue) Remove(naddr int32) {
 func (tq *toutQueue) Push(naddr int32) {
 	ele, ok := tq.listEle[naddr]
 	if ok {
-		ele.Value.(*listNode).tm = time.Now()
-		return
+		tq.timeoutList.Remove(ele)
+		delete(tq.listEle, naddr)
 	}
 
 	ele = tq.timeoutList.PushBack(&listNode{
